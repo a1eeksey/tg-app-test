@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
+import { useTelegram } from "../../hooks/useTelegram";
 import "../Form/Form.css"
 
 const Form = () => {
@@ -7,6 +9,21 @@ const Form = () => {
     const [state, setState] = useState()
     const [zip, setZip] = useState()
     const [subject, setSubject] = useState('physical')
+    const {tg} = useTelegram()
+
+    useEffect(() => {
+        tg.MainButton.setParams({
+            text: 'Send data'
+        })
+    })
+
+    useEffect(() => {
+        if (!street || !country) {
+            tg.MainButton.hide()
+        } else {
+            tg.MainButton.show()
+        }
+    }, [country, street])
 
     const onChangeCountry = (e) => {
         setCountry(e.target.value)
