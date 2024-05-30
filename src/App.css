@@ -8,3 +8,9 @@ body {
   background: var(--tg-theme-bg-color);
   color: var(--tg-theme-text-color);
 }
+
+button {
+  width: 100px;
+  height: 20px;
+  color: black;
+}
