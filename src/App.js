@@ -7,14 +7,9 @@ function App() {
     tg.ready()
   })
 
-  const onClose = () => {
-    tg.Close()
-  }
-
   return (
     <div className="App">
       work
-      <button onClick={onClose}></button>
     </div>
   );
 }
