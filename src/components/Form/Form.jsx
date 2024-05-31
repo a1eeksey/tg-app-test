@@ -1,28 +1,24 @@
-import React, { useState } from "react";
-import { useCallback } from "react";
-import { useEffect } from "react";
-import { useTelegram } from "../../hooks/useTelegram";
-import "../Form/Form.css"
+import React, {useCallback, useEffect, useState} from 'react';
+import './Form.css';
+import {useTelegram} from "../../hooks/useTelegram";
 
 const Form = () => {
-    const [country, setCountry] = useState()
-    const [street, setStreet] = useState()
-    const {tg} = useTelegram()
+    const [country, setCountry] = useState('');
+    const [street, setStreet] = useState('');
+    const {tg} = useTelegram();
 
     const onSendData = useCallback(() => {
         const data = {
             country,
             street
         }
-        console.log('ok');
         tg.sendData(JSON.stringify(data));
     }, [country, street])
 
     useEffect(() => {
-        Telegram.WebApp.onEvent('mainButtonClicked', onSendData)
-        console.log('useeffect mainbutton clicked');
+        tg.onEvent('mainButtonClicked', onSendData)
         return () => {
-            Telegram.WebApp.offEvent('mainButtonClicked', onSendData)
+            tg.offEvent('mainButtonClicked', onSendData)
         }
     }, [onSendData])
 
@@ -33,10 +29,10 @@ const Form = () => {
     }, [])
 
     useEffect(() => {
-        if (!street || !country) {
-            tg.MainButton.hide()
+        if(!street || !country) {
+            tg.MainButton.hide();
         } else {
-            tg.MainButton.show()
+            tg.MainButton.show();
         }
     }, [country, street])
 
@@ -47,14 +43,26 @@ const Form = () => {
     const onChangeStreet = (e) => {
         setStreet(e.target.value)
     }
- 
-    return (
-        <div className="Form">
-            <h3>Type your data</h3>
-            <input type="text" value={country} onChange={onChangeCountry} placeholder={'Country'} />
-            <input type="text" value={street} onChange={onChangeStreet} placeholder={'Street'} />
-        </div>
-    )
-}
 
-export default Form
+    return (
+        <div className={"form"}>
+            <h3>Введите ваши данные</h3>
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Страна'}
+                value={country}
+                onChange={onChangeCountry}
+            />
+            <input
+                className={'input'}
+                type="text"
+                placeholder={'Улица'}
+                value={street}
+                onChange={onChangeStreet}
+            />
+        </div>
+    );
+};
+
+export default Form;
