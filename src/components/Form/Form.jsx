@@ -10,6 +10,7 @@ const Form = () => {
     const {tg} = useTelegram()
 
     const onSendData = useCallback(() => {
+        console.log('ok');
         const data ={ 
             country,
             street,
