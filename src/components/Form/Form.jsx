@@ -19,9 +19,9 @@ const Form = () => {
     }, [country, street])
 
     useEffect(() => {
-        Telegram.WebApp.onEvent('mainButtonClicked', callback)
+        Telegram.WebApp.onEvent('mainButtonClicked', onSendData)
         return () => {
-            Telegram.WebApp.offEvent('mainButtonClicked', callback)
+            Telegram.WebApp.offEvent('mainButtonClicked', onSendData)
         }
     }, [onSendData])
 
